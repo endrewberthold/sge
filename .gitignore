@@ -141,3 +141,11 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+# spring-boot/java
+target/
+.idea/
+.vscode/
+*.iml
+*.class
+*.log
+.env
