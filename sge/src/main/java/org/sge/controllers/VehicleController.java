@@ -1,6 +1,7 @@
 package org.sge.controllers;
 
-import org.sge.entity.Vehicle;
+import org.sge.dtos.VehicleRequestDTO;
+import org.sge.dtos.VehicleResponseDTO;
 import org.sge.service.VehicleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,10 @@ public class VehicleController {
     }
 
     @PostMapping("/{clientId}")
-    public Vehicle create(
+    public VehicleResponseDTO create(
             @PathVariable Long clientId,
-            @RequestBody Vehicle vehicle){
+            @RequestBody VehicleRequestDTO dto){
 
-        System.out.println(vehicle);
-
-        return vehicleService.create(clientId, vehicle);
+        return vehicleService.create(clientId, dto);
     }
 }

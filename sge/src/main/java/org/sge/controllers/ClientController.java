@@ -1,6 +1,7 @@
 package org.sge.controllers;
 
-import org.sge.entity.Client;
+import org.sge.dtos.ClientRequestDTO;
+import org.sge.dtos.ClientResponseDTO;
 import org.sge.service.ClientService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +18,14 @@ public class ClientController {
     }
 
     @PostMapping
-    public Client create(
-            @RequestBody Client client
+    public ClientResponseDTO create(
+            @RequestBody ClientRequestDTO dto
     ){
-        return clientService.create(client);
+        return clientService.create(dto);
     }
 
     @GetMapping("/all")
-    public List<Client> findAll(){
+    public List<ClientResponseDTO> findAll(){
         return clientService.findAll();
     }
 }

@@ -1,12 +1,12 @@
 package org.sge.service;
 
+import org.sge.dtos.VehicleRequestDTO;
+import org.sge.dtos.VehicleResponseDTO;
 import org.sge.entity.Client;
 import org.sge.entity.Vehicle;
 import org.sge.repository.ClientRepository;
 import org.sge.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class VehicleService {
@@ -22,19 +22,31 @@ public class VehicleService {
         this.clientRepository = clientRepository;
     }
 
-    public Vehicle create(Long clientId, Vehicle vehicle){
+    public VehicleResponseDTO create(Long clientId, VehicleRequestDTO dto){
 
-        Optional<Vehicle> existingVehicle = vehicleRepository.findByPlate(vehicle.getPlate());
-
-        if(existingVehicle.isPresent()){
+        if (vehicleRepository.findByPlate(dto.plate()).isPresent()){
             throw new RuntimeException("Veículo já cadastrado.");
         }
 
         Client client = clientRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
+        Vehicle vehicle = new Vehicle();
+
+        vehicle.setPlate(dto.plate());
+        vehicle.setMark(dto.mark());
+        vehicle.setModel(dto.model());
+        vehicle.setColor(dto.color());
         vehicle.setClient(client);
 
-        return vehicleRepository.save(vehicle);
+        Vehicle savedVehicle = vehicleRepository.save(vehicle);
+
+        return new VehicleResponseDTO(
+                savedVehicle.getId(),
+                savedVehicle.getPlate(),
+                savedVehicle.getMark(),
+                savedVehicle.getModel(),
+                savedVehicle.getColor()
+        );
     }
 }

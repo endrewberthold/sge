@@ -1,5 +1,7 @@
 package org.sge.service;
 
+import org.sge.dtos.ClientRequestDTO;
+import org.sge.dtos.ClientResponseDTO;
 import org.sge.entity.Client;
 import org.sge.repository.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -18,18 +20,38 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public Client create(Client client){
+    public ClientResponseDTO create(ClientRequestDTO dto){
 
-        Optional<Client> existingClient = clientRepository.findByDocument(client.getDocument());
+        Optional<Client> existingClient = clientRepository.findByDocument(dto.document());
 
         if(existingClient.isPresent()){
             throw new RuntimeException("Cliente já cadastrado.");
         }
 
-        return clientRepository.save(client);
+        Client client = new Client();
+
+        client.setName(dto.name());
+        client.setDocument(dto.document());
+        //client.setEmail(dto.email());
+        client.setPhone(dto.phone());
+
+        Client savedClient = clientRepository.save(client);
+
+        return new ClientResponseDTO(
+                savedClient.getId(),
+                savedClient.getName()
+        //        savedClient.getEmail()
+        );
     }
 
-    public List<Client> findAll(){
-        return clientRepository.findAll();
+    public List<ClientResponseDTO> findAll(){
+        return clientRepository.findAll()
+                .stream()
+                .map(client -> new ClientResponseDTO(
+                        client.getId(),
+                        client.getName()
+                        //client.getEmail()
+                ))
+                .toList();
     }
 }
