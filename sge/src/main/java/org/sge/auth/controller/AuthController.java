@@ -1,8 +1,9 @@
-package org.sge.controllers;
+package org.sge.auth.controller;
 
-import org.sge.dtos.LoginRequestDTO;
-import org.sge.dtos.RegisterRequestDTO;
-import org.sge.service.AuthService;
+import org.sge.auth.dto.AuthResponseDTO;
+import org.sge.auth.dto.LoginRequestDTO;
+import org.sge.auth.dto.RegisterRequestDTO;
+import org.sge.auth.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginRequestDTO dto){
-        authService.login(dto);
+    public AuthResponseDTO login(@RequestBody LoginRequestDTO dto){
+        return authService.login(dto);
     }
 }

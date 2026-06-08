@@ -1,4 +1,4 @@
-package org.sge.dtos;
+package org.sge.auth.dto;
 
 public record LoginRequestDTO(
         String email,

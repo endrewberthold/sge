@@ -2,6 +2,7 @@ package org.sge.repository;
 
 import org.sge.entity.ParkingSession;
 import org.sge.entity.Vehicle;
+import org.sge.enums.SessionStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -11,4 +12,9 @@ public interface ParkingSessionRepository extends JpaRepository<ParkingSession, 
     boolean existsByVehicleAndExitTimeIsNull(Vehicle vehicle);
 
     Optional<ParkingSession> findByVehicleAndExitTimeIsNull(Vehicle vehicle);
+
+    Optional<ParkingSession> findByVehicleAndStatus(
+            Vehicle vehicle,
+            SessionStatus status
+    );
 }

@@ -2,6 +2,7 @@ package org.sge.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.sge.enums.SessionStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,7 +23,8 @@ public class ParkingSession {
 
     private LocalDateTime exitTime;
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    private BigDecimal totalAmount;
 
-    }
+    @Enumerated(EnumType.STRING)
+    private SessionStatus status;
 }

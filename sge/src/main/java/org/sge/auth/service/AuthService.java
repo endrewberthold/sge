@@ -1,7 +1,8 @@
-package org.sge.service;
+package org.sge.auth.service;
 
-import org.sge.dtos.LoginRequestDTO;
-import org.sge.dtos.RegisterRequestDTO;
+import org.sge.auth.dto.AuthResponseDTO;
+import org.sge.auth.dto.LoginRequestDTO;
+import org.sge.auth.dto.RegisterRequestDTO;
 import org.sge.entity.Client;
 import org.sge.entity.User;
 import org.sge.enums.AuthProvider;
@@ -17,11 +18,13 @@ public class AuthService {
     private final UserRepository userRepository;
     private final ClientRepository clientRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public AuthService(UserRepository userRepository, ClientRepository clientRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, ClientRepository clientRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public void register(RegisterRequestDTO dto) {
@@ -51,9 +54,10 @@ public class AuthService {
         clientRepository.save(client);
     }
 
-    public void login(LoginRequestDTO dto)
+    public AuthResponseDTO login(LoginRequestDTO dto)
     {
-    User user = userRepository.findByEmail(dto.email())
+    User user = userRepository
+            .findByEmail(dto.email())
             .orElseThrow(() ->
                     new RuntimeException("Usuário não encontrado."));
 
@@ -66,6 +70,10 @@ public class AuthService {
     if(!validPassword){
         throw new RuntimeException("Senha inválida.");
     }
+
+    String token = jwtService.generateToken(user);
+
+    return new AuthResponseDTO(token);
 
     }
 }

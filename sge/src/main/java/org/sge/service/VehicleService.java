@@ -43,7 +43,6 @@ public class VehicleService {
 
         return new VehicleResponseDTO(
                 savedVehicle.getId(),
-                savedVehicle.getPlate(),
                 savedVehicle.getMark(),
                 savedVehicle.getModel(),
                 savedVehicle.getColor()

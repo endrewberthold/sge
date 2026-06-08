@@ -1,4 +1,6 @@
-package org.sge.dtos;
+package org.sge.auth.dto;
+
+import org.sge.enums.Role;
 
 public record RegisterRequestDTO(
         String name,
