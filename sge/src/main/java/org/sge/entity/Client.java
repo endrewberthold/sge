@@ -1,16 +1,17 @@
 package org.sge.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
+@Builder
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Client {
 
     @Id
@@ -19,14 +20,13 @@ public class Client {
 
     private String name;
 
-    private String email;
-
-    @Column(unique = true)
     private String document;
 
-    private String address;
-
     private String phone;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "client")
