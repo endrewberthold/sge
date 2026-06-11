@@ -1,4 +1,4 @@
-CREATE TABLE client (
+CREATE TABLE clients (
 
     id BIGSERIAL PRIMARY KEY,
 

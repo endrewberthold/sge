@@ -7,6 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "vehicles")
 public class Vehicle {
 
     @Id

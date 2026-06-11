@@ -1,4 +1,4 @@
-CREATE TABLE vehicle (
+CREATE TABLE vehicles (
 
     id BIGSERIAL PRIMARY KEY,
 

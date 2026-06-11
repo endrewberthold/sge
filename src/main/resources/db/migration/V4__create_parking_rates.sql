@@ -1,4 +1,4 @@
-CREATE TABLE parking_rate (
+CREATE TABLE parking_rates (
 
     id BIGSERIAL PRIMARY KEY,
 

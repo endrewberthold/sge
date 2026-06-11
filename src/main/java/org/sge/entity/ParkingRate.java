@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "parking_rates")
 public class ParkingRate {
 
     @Id
