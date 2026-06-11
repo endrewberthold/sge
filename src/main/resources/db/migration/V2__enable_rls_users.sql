@@ -1,0 +1,7 @@
+ALTER TABLE users
+ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "deny_all_access"
+ON users
+FOR ALL
+USING (false);
