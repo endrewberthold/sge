@@ -12,13 +12,12 @@ import java.math.BigDecimal;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "parking_rates")
 public class ParkingRate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
 
     @Enumerated(EnumType.STRING)
     private RateType type;
